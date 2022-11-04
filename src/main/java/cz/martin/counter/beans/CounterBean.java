@@ -2,6 +2,7 @@ package cz.martin.counter.beans;
 
 import cz.martin.counter.repositories.CounterRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.*;
@@ -11,7 +12,8 @@ import java.io.*;
 public class CounterBean {
     private int count = 0;
 
-    private CounterRepository counterRepository = new CounterRepository();
+    @Inject
+    private CounterRepository counterRepository;
 
     public void increment() throws IOException {
         count++;

@@ -1,7 +1,10 @@
 package cz.martin.counter.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 import java.io.*;
 
+@ApplicationScoped
 public class CounterRepository {
 
     public void save(int count) throws IOException {
