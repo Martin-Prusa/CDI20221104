@@ -1,5 +1,6 @@
 package cz.martin.counter.beans;
 
+import cz.martin.counter.repositories.CounterRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
@@ -10,21 +11,15 @@ import java.io.*;
 public class CounterBean {
     private int count = 0;
 
+    private CounterRepository counterRepository = new CounterRepository();
+
     public void increment() throws IOException {
         count++;
-
-        BufferedWriter bw = new BufferedWriter(new FileWriter("data.txt"));
-        bw.write(String.valueOf(count));
-        bw.close();
+        counterRepository.save(count);
     }
 
     public int getCount() {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
-            this.count = Integer.parseInt(br.readLine());
-            return count;
-        } catch (IOException e) {
-            return 0;
-        }
+        count = counterRepository.load();
+        return count;
     }
 }
